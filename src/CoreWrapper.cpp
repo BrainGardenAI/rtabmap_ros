@@ -1398,6 +1398,12 @@ void CoreWrapper::commonDepthCallbackImpl(
 			rtabmap_ros::timestampFromROS(lastPoseStamp_),
 			userData);
 
+	if (!scan2dMsg.ranges.empty() && data.laserScanRaw().isEmpty())
+	{
+		ROS_WARN("Received null laser scan!");
+		return;
+	}
+
 	OdometryInfo odomInfo;
 	if(odomInfoMsg.get())
 	{
